@@ -1,13 +1,8 @@
-import spotipy
 
 class Get:
-    scope = 'playlist-read-private'
-    token = spotipy.util.prompt_for_user_token("kieferisgreat@gmail.com", scope)
-    sp = spotipy.Spotify(auth=token)
-    # sp = spotipy.Spotify(client_credentials_manager=spotipy.oauth2.SpotifyClientCredentials())
-
-    def __init__(self, user):
+    def __init__(self, user, spotipy):
         self.user = user
+        self.sp = spotipy
 
     def liked_tracks(self):
         liked_tracks = self.sp.current_user_saved_tracks(limit=20, offset=0)

@@ -1,12 +1,8 @@
-import spotipy
 
 class Playlist:
-    scope = 'playlist-modify-private'
-    token = spotipy.util.prompt_for_user_token("kieferisgreat@gmail.com", scope)
-    sp = spotipy.Spotify(auth=token)
-
-    def __init__(self, user, name, public, description):
+    def __init__(self, user, spotipy, name, public, description):
         self.user = user
+        self.sp = spotipy
         self.name = name
         self.public = False
         self.description = "Auto generated playlist with recommendations."
