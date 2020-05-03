@@ -13,14 +13,15 @@ def main():
     g = get.Get(user, sp)
     s = save.Save()
     l = load.Load()
-    a = actions.Actions(g, s, l, user, playlist_list, sp)
+    a = actions.Actions(g, s, l, user, sp)
 
 #TODO add switch for what mode the user wants
     # collect all frames and lists in a class or something
     # mode switching
 
     a.get_user_playlists()
-    a.get_recommendations()
+    for name in playlist_list:
+        a.get_recommendations(name)
 
 if __name__ == "__main__":
      main()

@@ -26,6 +26,21 @@ class Get:
             playlist_tracks.extend(results['items'])
         return playlist_tracks
 
-    def recommendations(self, seed_tracks):
-        recs = self.sp.recommendations(seed_tracks=seed_tracks[-5:])
+    def recommendations(self, seed_tracks, **kwargs):
+        recs = self.sp.recommendations(seed_tracks=seed_tracks[-5:], **kwargs)
         return recs
+
+    def features_ideal(self,track_ids, name):
+        import pandas
+        print(track_ids)
+
+        ideal_dict = {}
+        features_list = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'tempo']
+        a = self.sp.audio_features(track_ids)
+        features_frame = pandas.DataFrame(a)
+        print(features_frame)
+        for feature in features_list:
+            ideal_dict['min_' + feature] = features_frame[feature].min()
+            ideal_dict['max_' + feature] = features_frame[feature].max()
+            ideal_dict['target_' + feature] = features_frame[feature].median()
+        return ideal_dict
